@@ -1,0 +1,21 @@
+{
+  "name": "posify-qa-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiksang16/posify-qa-ui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiksang16/posify-qa-ui/issues"
+  },
+  "homepage": "https://github.com/tiksang16/posify-qa-ui#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.30.0"
+  }
+}
