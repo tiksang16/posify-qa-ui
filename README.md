@@ -9,8 +9,10 @@
 5. In the command terminal, run the command ```npm init playwright@latest```
 6. Open the repo in VS Code or any editor to view, debug and execute scripts
 
-##Executing the scripts
-Run the command ```npx playwright test --headed ``` to excute the script
+## Executing the scripts
+Runs test in headed mode ```npx playwright test --headed ``` 
+Debug tests ```npx playwright test --debug ``` 
+
 
 ## Further references
 
