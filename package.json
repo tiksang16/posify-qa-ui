@@ -17,5 +17,8 @@
   "homepage": "https://github.com/tiksang16/posify-qa-ui#readme",
   "devDependencies": {
     "@playwright/test": "^1.30.0"
+  },
+  "dependencies": {
+    "puppeteer": "^19.6.3"
   }
 }
