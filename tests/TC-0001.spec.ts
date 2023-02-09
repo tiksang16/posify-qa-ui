@@ -40,7 +40,7 @@ test.describe('TC-001', async() => {
     await page.locator("xpath=/html/body/div[6]/div/div[1]/div/form/div/div/div/div[1]/button").click();
   });
 
-  test('Online Store', async ()=> {
+  test.only('Online Store', async ()=> {
     await page.goto('https://web21.posify.me/posifyautotest@7.3.01.2203.0724/');
     //在搜尋輸入商品A
     await page.locator('xpath=/html/body/div[1]/header/div/div[1]/ul[1]/li/div/div/input').fill("Tik's Testing");
@@ -56,9 +56,9 @@ test.describe('TC-001', async() => {
     await page.waitForTimeout(5000);
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/div[2]/p[2]/a[2]').click();
     await page.waitForTimeout(5000);
-    const rando = Math.random().toString(36).substring(2, 7);
+    const rando = Math.floor(10000000 + Math.random() * 90000000);
     //input phone number
-    await page.locator("xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[1]/div/div/div/div/input").fill('12345678');
+    await page.locator("xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[1]/div/div/div/div/input").fill(`${rando}`);
     //input random email
     await page.locator('xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[2]/div/div/div/input').fill(`${rando}@gmail.com`);
     //input name
@@ -66,15 +66,42 @@ test.describe('TC-001', async() => {
     //tick agreement
     await page.locator('xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[4]/div/div/label/div[1]/div/ins').click();
     //input password
-    await page.locator('xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[5]/div[1]/div/div/input').fill(`${rando}`);
+    await page.locator('xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[5]/div[1]/div/div/input').fill(`ABC${rando}`);
     //input password for second time
-    await page.locator('xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[5]/div[2]/div/div/input').fill(`${rando}`);
-    //select birthday
+    await page.locator('xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[5]/div[2]/div/div/input').fill(`ABC${rando}`);
+    //select birthday button
     await page.locator('xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[6]/div/div/div/input').click()
     //select the first of the month
     await page.locator('xpath=/html/body/div[28]/div[1]/table/tbody/tr[1]/td[4]').click();
+    //Click Join
+    await page.locator('xpath=/html/body/div[23]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]/form/div[7]/button').click();
+    //Click cart
+    await page.waitForTimeout(3000);
+    await page.locator('xpath=/html/body/div[1]/header/div/div[1]/ul[2]/li[1]/a/span').click();
+    //Assertion
+    await expect(page.locator('xpath=/html/body/div[25]/div[3]/div[2]/div[3]')).toHaveText("Tik's Testing");
+    //select payment method
+    await page.waitForTimeout(5000);
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[2]/div/div[2]/div[2]/div/div/div/div/span/span[1]/span/span[2]').click();
+    await page.locator("xpath=/html/body/span/span/span[2]/ul/li[2]").click();
+    //Input Last name
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[1]/div[2]/div/input').fill('Test');
+    //input phone number
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div/input').fill('12345678');
+    //input address
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[5]/span/span[1]/span/span[2]').click();
+    await page.locator("xpath=/html/body/span/span/span[2]/ul/li[2]").click();
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[6]/span/span[1]/span/span[2]').click();
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[8]/input').fill('Test');
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[4]/div[2]/div/div/textarea').fill('jaytest');
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[4]/div/div/div[1]/div/div/div/label/div/ins').click();
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[4]/div/div/div[2]/div/div[2]/button').click();
+    //Assertion
+    await expect(page.locator('xpath=/html/body/div[2]/div[1]/div[3]/div[1]/div/div/div/div[1]/div/div/div/div/div[3]/div[2]/div[3]')).toBeVisible;
+
   });
 
 
 });
 
+ 
