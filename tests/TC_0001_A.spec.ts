@@ -1,19 +1,12 @@
 import { test, expect, Page } from '@playwright/test';
 
-// test.beforeEach(async ({ page }) => {
-//   await page.goto('https://cms21.posify.me/posifyautotest@7.3.01.2203.0724/index.php?r=agent%2Flogin');
-//   await page.getByPlaceholder('登入名稱').fill('posifyautotest');
-//   await page.getByRole('button', { name: '下一步' }).click();
-//   await page.getByPlaceholder('密碼', { exact: true }).fill('posifyautotest');
-//   await page.getByRole('button', { name: '登入' }).click();
-
 test.describe('TC-001', async() => {
   let page: Page;
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
   });
 
-  test('POS', async () => {
+  test('POS - 一頁直式表格', async () => {
     await page.goto('https://cms21.posify.me/posifyautotest@7.3.01.2203.0724/index.php?r=agent%2Flogin');
     await page.getByPlaceholder('登入名稱').fill('posifyautotest');
     await page.getByRole('button', { name: '下一步' }).click();
@@ -32,28 +25,32 @@ test.describe('TC-001', async() => {
     await page.locator('xpath=/html/body/div[5]/div/div[1]/div/div[3]/div[4]/div[4]').hover();
     //Click the setting button to open the 結帳頁面樣式
     await page.waitForSelector('xpath=/html/body/div[5]/div/div[1]/div/div[3]/div[4]/div[4]/span/button[2]/i');
-    await expect(page.locator("xpath=/html/body/div[5]/div/div[1]/div/div[3]/div[4]/div[4]/span/button[2]/i")).toBeVisible;
+    await expect(page.locator("xpath=/html/body/div[5]/div/div[1]/div/div[3]/div[4]/div[4]/span/button[2]/i")).toBeVisible();
     await page.locator("xpath=/html/body/div[5]/div/div[1]/div/div[3]/div[4]/div[4]/span/button[2]/i").click();
     //select 一頁直式表格
     await page.locator("xpath=/html/body/div[6]/div/div[1]/div/form/div/div/div/div[2]/div/div/div[2]/img").click();
     //Save
     await page.locator("xpath=/html/body/div[6]/div/div[1]/div/form/div/div/div/div[1]/button").click();
+    await page.waitForTimeout(3000);
   });
 
-  test.only('Online Store', async ()=> {
+  test('Online Store - 一頁直式表格', async ()=> {
     await page.goto('https://web21.posify.me/posifyautotest@7.3.01.2203.0724/');
     //在搜尋輸入商品A
     await page.locator('xpath=/html/body/div[1]/header/div/div[1]/ul[1]/li/div/div/input').fill("Tik's Testing");
     //Click Search
     await page.locator('xpath=/html/body/div[1]/header/div/div[1]/ul[1]/li/div/div/span/button/i').click();
     //Add to cart
+    await page.waitForSelector('xpath=/html/body/div[2]/div[1]/div[4]/div[2]/div[2]/div[1]/div/div[2]/div/div[5]/div[2]/div[2]/button/span');
+    await page.waitForTimeout(3000);
     await page.locator('xpath=/html/body/div[2]/div[1]/div[4]/div[2]/div[2]/div[1]/div/div[2]/div/div[5]/div[2]/div[2]/button/span').click();
     //Go to checkout
     await page.locator("xpath=/html/body/div[25]/div[4]/div[2]/button").click();
     //Assertion
-    await expect(page.locator("xpath=/html/body/div[2]/div[1]/div/div[3]/div[2]/p[3]/a[1]")).toBeVisible;
-    await expect(page.locator("xpath=/html/body/div[2]/div[1]/div/div[3]/div[2]/p[3]/a[2]")).toBeVisible;
-    await page.waitForTimeout(5000);
+    await expect(page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form')).toBeVisible();
+    await expect(page.locator("xpath=/html/body/div[2]/div[1]/div/div[3]/div[2]/p[2]/a[2]")).toBeVisible();
+    await expect(page.locator("xpath=/html/body/div[2]/div[1]/div/div[3]/div[2]/p[2]/a[1]")).toBeVisible();
+    //click sign up
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/div[2]/p[2]/a[2]').click();
     await page.waitForTimeout(5000);
     const rando = Math.floor(10000000 + Math.random() * 90000000);
@@ -81,27 +78,35 @@ test.describe('TC-001', async() => {
     //Assertion
     await expect(page.locator('xpath=/html/body/div[25]/div[3]/div[2]/div[3]')).toHaveText("Tik's Testing");
     //select payment method
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(3000);
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[2]/div/div[2]/div[2]/div/div/div/div/span/span[1]/span/span[2]').click();
     await page.locator("xpath=/html/body/span/span/span[2]/ul/li[2]").click();
     //Input Last name
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[1]/div[2]/div/input').fill('Test');
     //input phone number
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div/input').fill('12345678');
+    //Input mail number
+    await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[3]/div/div/input').fill('00000');
     //input address
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[5]/span/span[1]/span/span[2]').click();
     await page.locator("xpath=/html/body/span/span/span[2]/ul/li[2]").click();
+
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[6]/span/span[1]/span/span[2]').click();
+    await page.locator('xpath=/html/body/span/span/span[2]/ul/li[2]').click();
+
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[1]/div[2]/div/div[2]/div[3]/div/div[8]/input').fill('Test');
+    
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[3]/div/div[4]/div[2]/div/div/textarea').fill('jaytest');
+
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[4]/div/div/div[1]/div/div/div/label/div/ins').click();
     await page.locator('xpath=/html/body/div[2]/div[1]/div/div[3]/form/div/div/div[4]/div/div/div[2]/div/div[2]/button').click();
     //Assertion
-    await expect(page.locator('xpath=/html/body/div[2]/div[1]/div[3]/div[1]/div/div/div/div[1]/div/div/div/div/div[3]/div[2]/div[3]')).toBeVisible;
+    await expect(page.locator('xpath=/html/body/div[2]/div[1]/div[3]/div[1]/div/div/div/div[1]/div/div/div/div/div[3]/div[2]/div[3]')).toBeVisible();
+    await page.waitForTimeout(5000);
 
   });
 
 
-});
 
- 
+
+});
