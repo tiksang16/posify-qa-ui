@@ -1,4 +1,5 @@
 pipeline {
+  anyagent
   stages {
     stage('install playwright') {
       steps {
