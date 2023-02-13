@@ -1,5 +1,5 @@
 pipeline {
-  anyagent
+  agent
   stages {
     stage('install playwright') {
       steps {
