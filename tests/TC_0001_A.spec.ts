@@ -103,6 +103,7 @@ test.describe('TC-001', async() => {
     //Assertion
     await expect(page.locator('xpath=/html/body/div[2]/div[1]/div[3]/div[1]/div/div/div/div[1]/div/div/div/div/div[3]/div[2]/div[3]')).toBeVisible();
     await page.waitForTimeout(5000);
+    await page.waitForTimeout(5000);
 
   });
 
