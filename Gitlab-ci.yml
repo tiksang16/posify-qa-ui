@@ -1,0 +1,23 @@
+image: mcr.microsoft.com/playwright:bionic
+
+stages:
+  - test
+
+test:
+  script:
+    - npm install
+    - npx playwright test
+
+TC_0001_A:
+  stage: test
+  script:
+    - npm install
+    - npx playwright test TC_0001_A.spec.ts
+  when: manual
+
+TC_0001_B:
+  stage: test
+  script:
+    - npm install
+    - npx playwright test TC_0001_B.spec.ts
+  when: manual
