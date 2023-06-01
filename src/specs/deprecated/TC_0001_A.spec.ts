@@ -1,5 +1,4 @@
 import { test, expect, Page } from '@playwright/test';
-import { onlineStoreTab } from '../pages/onlineStoreTab.spec';
 
 test.describe('TC-001', async() => {
   let page: Page;
@@ -7,7 +6,7 @@ test.describe('TC-001', async() => {
     page = await browser.newPage();
   });
 
-  test.only('POS - 一頁直式表格', async () => {
+  test('POS - 一頁直式表格', async () => {
     await page.goto('https://cms21.posify.me/posifyautotest@7.3.01.2203.0724/index.php?r=agent%2Flogin');
     await page.getByPlaceholder('登入名稱').fill('posifyautotest');
     await page.getByRole('button', { name: '下一步' }).click();
