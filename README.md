@@ -14,6 +14,8 @@
 Runs test in headed mode ```npx playwright test --headed ``` 
 Debug tests ```npx playwright test --debug ``` 
 
+## Notes
+Please check the config file to see which test scripts you are going to run.
 
 ## Further references
 
