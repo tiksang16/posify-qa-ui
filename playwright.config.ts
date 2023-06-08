@@ -12,7 +12,7 @@ import { devices } from '@playwright/test';
  */
 const config: PlaywrightTestConfig = {
   // testDir: "./src/specs/promotion",
-  testMatch: ["MKT-PROMO-5.2.2.1-8.spec.ts"],
+  testMatch: ["v0608/promotion.spec.ts"],
   // testMatch: ["promotion.spec.ts"],
   /* Maximum time one test can run for. */
   timeout: 30 * 10000,

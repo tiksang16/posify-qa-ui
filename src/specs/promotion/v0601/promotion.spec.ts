@@ -1,6 +1,6 @@
 import { Page, test, expect } from "@playwright/test";
-import { posifyOnlineStore } from "../../pages/OnlineStore/posifyOnlineStore.page";
-import { posifyShoppingCart } from "../../pages/OnlineStore/posifyShoppingCart.page";
+import { posifyOnlineStore } from "../../../pages/OnlineStore/posifyOnlineStore.page";
+import { posifyShoppingCart } from "../../../pages/OnlineStore/posifyShoppingCart.page";
 
 
 let onlineStore: posifyOnlineStore;
