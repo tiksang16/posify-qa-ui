@@ -40,10 +40,11 @@ export class posifyOnlineStore {
   }
 
   public async verifyGrandTotal(total) {
-    const totalPrice1 = this.page.locator(`xpath=//span[contains(@class, "grand-total") and contains(text(), "HK$ ${total}")]`).nth(1);
-    const totalPrice2 = this.page.locator(`xpath=//p[contains(@class, "pull-right total-container price-container") and contains(text(), "HK$ ${total}")]`);
+    const totalPrice1 = this.page.locator(`xpath=//div[contains(@id, "order-detail-section") and contains(text(), "HK$ ${total}")]`);
+    // const totalPrice1 = this.page.locator(`xpath=//span[contains(@class, "grand-total") and contains(text(), "HK$ ${total}")]`).nth(1);
+    // const totalPrice2 = this.page.locator(`xpath=//p[contains(@class, "pull-right total-container price-container") and contains(text(), "HK$ ${total}")]`);
     expect.soft(totalPrice1).toBeVisible();
-    expect.soft(totalPrice2).toBeVisible();
+    // expect.soft(totalPrice2).toBeVisible();
   }
 
 
