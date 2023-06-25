@@ -1,22 +1,30 @@
 import { Page, test, expect } from "@playwright/test";
 import { posifyOnlineStore } from "../../../pages/OnlineStore/posifyOnlineStore.page";
 import { posifyShoppingCart } from "../../../pages/OnlineStore/posifyShoppingCart.page";
+import posifyMarketingPage from "../../../pages/CMS/marketing.page";
+import posifyLoginPage from "../../../pages/CMS/login.page";
 
 
 let onlineStore: posifyOnlineStore;
 let shoppingCart: posifyShoppingCart;
+let loginPage: posifyLoginPage;
+let marketingPage: posifyMarketingPage;
 test.describe("Promotion ", () => {
   test.beforeAll(async ({ browser }) => {
     const context = await browser.newContext({});
     const page = await context.newPage();
     onlineStore = new posifyOnlineStore(page);
     shoppingCart = new posifyShoppingCart(page);
+    loginPage = new posifyLoginPage(page);
+    marketingPage = new posifyMarketingPage(page);
   });
-  test.afterAll(async({browser}) => {
+  test.afterAll(async ({ browser }) => {
     await browser.close();
-  })
+  });
 
   test("MKT/PROMO/5.2.2.1/1 - 推广规则：买不少于金额2000就可以享受100的固定折扣，实际买2000减100", async () => {
+    await marketingPage.activatePromotion("买满2000减100");
+
     await onlineStore.page.goto('https://web21.posify.me/atpromotiontest@7.3.01.2203.0905w/?lang=ZH_HK#');
     await onlineStore.page.waitForTimeout(2000);
     await onlineStore.checkIfLangbtnforHKisVisible();
@@ -135,6 +143,8 @@ test.describe("Promotion ", () => {
     });
 
     test("MKT/PROMO/5.2.2.1/5 - 推广规则：买女子针织长裤不少于金额100，固定折扣1000", async () => {
+      await marketingPage.activatePromotion("女子针织长裤满$100, 减$1,000");
+
       await onlineStore.page.goto(
         "https://web21.posify.me/atpromotiontest@7.3.01.2203.0905w/?lang=ZH_HK#"
       );
@@ -229,6 +239,10 @@ test.describe("Promotion ", () => {
       await onlineStore.shoppingCart.click();
       await shoppingCart.deleteCartBtn.click();
       await onlineStore.page.waitForTimeout(2000);
+
+      await marketingPage.deactivatePromotion("女子针织长裤满$100, 减$1,000");
+
+      await marketingPage.deactivatePromotion("买满2000减100");
     });
   
 

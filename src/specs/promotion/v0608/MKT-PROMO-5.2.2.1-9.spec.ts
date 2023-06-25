@@ -1,12 +1,14 @@
 import { Page, test, expect } from "@playwright/test";
 import { posifyOnlineStore } from "../../../pages/OnlineStore/posifyOnlineStore.page";
 import { posifyShoppingCart } from "../../../pages/OnlineStore/posifyShoppingCart.page";
+import posifyMarketingPage from "../../../pages/CMS/marketing.page";
 import posifyLoginPage from "../../../pages/CMS/login.page";
 
 
 let onlineStore: posifyOnlineStore;
 let shoppingCart: posifyShoppingCart;
 let loginPage: posifyLoginPage;
+let marketingPage: posifyMarketingPage;
 test.describe("Promotion ", () => {
   test.beforeAll(async ({ browser }) => {
     const context = await browser.newContext({});
@@ -14,6 +16,7 @@ test.describe("Promotion ", () => {
     onlineStore = new posifyOnlineStore(page);
     shoppingCart = new posifyShoppingCart(page);
     loginPage = new posifyLoginPage(page);
+    marketingPage = new posifyMarketingPage(page);
   });
   test.afterAll(async ({ browser }) => {
     await browser.close();
@@ -21,32 +24,7 @@ test.describe("Promotion ", () => {
 
   test("MKT/PROMO/5.2.2.1/9 - 推广规则：买满不少于数量3就可以享受100的固定折扣，去推广优惠下不包括的会员等级使用", async () => {
   
-    await onlineStore.page.goto(
-      "https://cms21.posify.me/atpromotiontest@7.3.01.2203.0905w/index.php?r=customer%2Fmanage-client"
-    );
-    await loginPage.userName.fill("posifyadmin");
-    await loginPage.nextBtn.click();
-    await loginPage.password.fill("102938");
-    await loginPage.loginBtn.click();
-    await loginPage.page.waitForTimeout(5000);
-    await loginPage.page.locator('xpath=/html/body/div[1]/aside/div[1]/section/ul/li[10]/a/span').click();
-    await loginPage.page.waitForTimeout(2000);
-    await loginPage.page.getByRole("link", { name: "推广优惠" }).click();
-    await loginPage.page.waitForTimeout(2000);
-    await loginPage.page.locator("xpath=//button[@data-category='promotion']").nth(0).click();
-    await loginPage.page.waitForTimeout(3000);
-    await loginPage.page.getByText("客户群").nth(0).click();
-    await loginPage.page.locator("xpath=//span[@class='select2-selection__choice__remove']").nth(4).click();
-    await loginPage.page.keyboard.press("ArrowDown");
-    await loginPage.page.keyboard.press("ArrowDown");
-    await loginPage.page.keyboard.press("ArrowDown");
-    await loginPage.page.keyboard.press("ArrowDown");
-    await loginPage.page.keyboard.press("Enter");
-    await loginPage.page.locator("xpath=//button[@class='btn btn-sm btn-ctrl btn-success']").click();
-    await loginPage.page.waitForTimeout(2000);
-    await loginPage.page.locator("xpath=//img[@src='/atpromotiontest@7.3.01.2203.0905w/images/no-user.png']").nth(0).click();
-    await loginPage.page.getByText("登出").nth(0).click();
-    await loginPage.page.waitForTimeout(2000);
+    await marketingPage.activatePromotion("买满不少于数量3减100，去推广优惠下不包括的会员等级使用");
     
 
     await onlineStore.page.goto(
@@ -75,25 +53,7 @@ test.describe("Promotion ", () => {
     await onlineStore.page.waitForTimeout(3000);
 
 
-    await onlineStore.page.goto(
-      "https://cms21.posify.me/atpromotiontest@7.3.01.2203.0905w/index.php?r=customer%2Fmanage-client"
-    );
-    await loginPage.userName.fill("posifyadmin");
-    await loginPage.nextBtn.click();
-    await loginPage.password.fill("102938");
-    await loginPage.loginBtn.click();
-    await loginPage.page.waitForTimeout(5000);
-    await loginPage.page.locator('xpath=/html/body/div[1]/aside/div[1]/section/ul/li[10]/a/span').click();
-    await loginPage.page.waitForTimeout(2000);
-    await loginPage.page.getByRole("link", { name: "推广优惠" }).click();
-    await loginPage.page.waitForTimeout(2000);
-    await loginPage.page.locator("xpath=//button[@data-category='promotion']").nth(0).click();
-    await loginPage.page.waitForTimeout(3000);
-    await loginPage.page.getByText("客户群").nth(0).click();
-    await loginPage.page.locator("xpath=//span[@class='select2-selection__choice__remove']").nth(4).click();
-    await loginPage.page.keyboard.press("Enter");
-    await loginPage.page.locator("xpath=//button[@class='btn btn-sm btn-ctrl btn-success']").click();
-    await loginPage.page.waitForTimeout(2000);
+    await marketingPage.deactivatePromotion("买满不少于数量3减100，去推广优惠下不包括的会员等级使用");
   });
 
 });

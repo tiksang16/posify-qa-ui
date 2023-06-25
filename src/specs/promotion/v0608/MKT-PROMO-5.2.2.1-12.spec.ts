@@ -1,12 +1,14 @@
 import { Page, test, expect } from "@playwright/test";
 import { posifyOnlineStore } from "../../../pages/OnlineStore/posifyOnlineStore.page";
 import { posifyShoppingCart } from "../../../pages/OnlineStore/posifyShoppingCart.page";
+import posifyMarketingPage from "../../../pages/CMS/marketing.page";
 import posifyLoginPage from "../../../pages/CMS/login.page";
 
 
 let onlineStore: posifyOnlineStore;
 let shoppingCart: posifyShoppingCart;
 let loginPage: posifyLoginPage;
+let marketingPage: posifyMarketingPage;
 test.describe("Promotion ", () => {
   test.beforeAll(async ({ browser }) => {
     const context = await browser.newContext({});
@@ -14,6 +16,7 @@ test.describe("Promotion ", () => {
     onlineStore = new posifyOnlineStore(page);
     shoppingCart = new posifyShoppingCart(page);
     loginPage = new posifyLoginPage(page);
+    marketingPage = new posifyMarketingPage(page);
   });
   test.afterAll(async ({ browser }) => {
     await browser.close();
