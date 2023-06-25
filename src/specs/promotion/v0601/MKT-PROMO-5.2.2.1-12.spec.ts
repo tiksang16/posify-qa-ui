@@ -1,7 +1,7 @@
 import { Page, test, expect } from "@playwright/test";
-import { posifyOnlineStore } from "../../pages/OnlineStore/posifyOnlineStore.page";
-import { posifyShoppingCart } from "../../pages/OnlineStore/posifyShoppingCart.page";
-import posifyLoginPage from "../../pages/CMS/login.page";
+import { posifyOnlineStore } from "../../../pages/OnlineStore/posifyOnlineStore.page";
+import { posifyShoppingCart } from "../../../pages/OnlineStore/posifyShoppingCart.page";
+import posifyLoginPage from "../../../pages/CMS/login.page";
 
 
 let onlineStore: posifyOnlineStore;
@@ -39,6 +39,8 @@ test.describe("Promotion ", () => {
       .nth(0)
       .click();
     await loginPage.page.waitForTimeout(3000);
+    await loginPage.page.getByText(' 前往进阶模式').click();
+    await loginPage.page.waitForTimeout(2000);
     await loginPage.page
       .locator(
         'xpath=//span[@class="bootstrap-switch-handle-on bootstrap-switch-primary"]'

@@ -1,7 +1,7 @@
 import { Page, test, expect } from "@playwright/test";
-import { posifyOnlineStore } from "../../pages/OnlineStore/posifyOnlineStore.page";
-import { posifyShoppingCart } from "../../pages/OnlineStore/posifyShoppingCart.page";
-import posifyLoginPage from "../../pages/CMS/login.page";
+import { posifyOnlineStore } from "../../../pages/OnlineStore/posifyOnlineStore.page";
+import { posifyShoppingCart } from "../../../pages/OnlineStore/posifyShoppingCart.page";
+import posifyLoginPage from "../../../pages/CMS/login.page";
 
 
 let onlineStore: posifyOnlineStore;
@@ -34,7 +34,9 @@ test.describe("Promotion ", () => {
     await loginPage.page.getByRole("link", { name: "推广优惠" }).click();
     await loginPage.page.waitForTimeout(2000);
     await loginPage.page.locator("xpath=//button[@data-category='promotion']").nth(0).click();
-    await loginPage.page.waitForTimeout(3000);
+    await loginPage.page.waitForTimeout(2000);
+    await loginPage.page.getByText(' 前往进阶模式').click();
+    await loginPage.page.waitForTimeout(2000);
     await loginPage.page.locator("xpath=//span[@class='select2-selection__choice__remove']").nth(0).click();
     await loginPage.page.getByText("S4 - 微信小程序").nth(3).click();
     await loginPage.page.locator("xpath=//button[@class='btn btn-sm btn-ctrl btn-success']").click();
