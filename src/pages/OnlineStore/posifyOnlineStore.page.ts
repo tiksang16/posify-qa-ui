@@ -14,6 +14,15 @@ export class posifyOnlineStore {
   readonly quantityTouchspinDown: Locator;
   readonly addToCartBtn: Locator;
   readonly grandTotal: Locator;
+  readonly profileBtn: Locator;
+  readonly profileLogin: Locator;
+  readonly username: Locator;
+  readonly password: Locator;
+  readonly loginBtn: Locator;
+  readonly orderReady: Locator;
+  readonly orderSubmit: Locator;
+  readonly myPoint: Locator;
+  readonly notActivePoint: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -28,6 +37,16 @@ export class posifyOnlineStore {
     this.quantityTouchspinUp = page.locator('xpath=//button[@class="btn btn-default bootstrap-touchspin-up"]');
     this.quantityTouchspinDown = page.locator('xpath=//button[@class="btn btn-default bootstrap-touchspin-down"]');
     this.addToCartBtn = page.locator('xpath=//span[@class="add-to-cart-button-span"]');
+    this.profileBtn = page.locator('xpath=//li[@class="pull-right common-signed-in sign-in "]');
+    this.profileLogin = page.locator('xpath=//li[@class="pull-right sign-in 1"]');
+    this.username = page.locator('xpath=//input[@id="l-login"]');
+    this.password = page.locator('xpath=//input[@id="l-password"]');
+    this.loginBtn = page.locator('xpath=//button[@class="btn btn-primary btn-block login-button"]').first();
+    this.orderReady = page.locator('xpath=//input[@id="order-agree"]');
+    this.orderSubmit = page.locator('xpath=//button[@id="submit-button"]');
+    this.myPoint = page.getByRole("link", { name: "我的積分" });
+    this.notActivePoint = page.getByRole("link", { name: "未生效" });
+    
 
   }
 
@@ -45,6 +64,18 @@ export class posifyOnlineStore {
     // const totalPrice2 = this.page.locator(`xpath=//p[contains(@class, "pull-right total-container price-container") and contains(text(), "HK$ ${total}")]`);
     expect.soft(totalPrice1).toBeVisible();
     // expect.soft(totalPrice2).toBeVisible();
+  }
+
+  public async login(username, password) {
+    await this.profileLogin.click();
+    await this.username.fill(username);
+    await this.password.fill(password)
+    await this.loginBtn.click();
+  }
+
+  public async searchItem(item){
+    await this.searchInput.fill(item);
+    await this.searchConfirm.click();
   }
 
 

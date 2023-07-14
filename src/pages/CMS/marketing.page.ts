@@ -43,7 +43,7 @@ export default class posifyMarketingPage {
     await this.page.waitForTimeout(4000);
     await this.page.locator('tr', { hasText: `${promotionText}` }).locator("xpath=//button[@data-category='promotion']").nth(0).click();
     await this.page.waitForTimeout(2000);
-    await this.page.locator('#tab_general').getByText('否').click();
+    await this.page.locator('#tab_general').getByText('否').first().click();
     await this.page.waitForTimeout(2000);
     await this.saveBtn.click();
     await this.page.waitForTimeout(2000);
