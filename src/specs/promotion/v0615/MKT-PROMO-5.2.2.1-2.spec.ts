@@ -23,41 +23,7 @@ test.describe("Promotion ", () => {
   });
 
   test("MKT/PROMO/5.2.2.1/2 - 推广规则：相等于数量3就可以全单，以折实价享有20%的折扣", async () => {
-    await onlineStore.page.goto(
-      "https://cms21.posify.me/atpromotiontest@7.3.01.2203.0905w/index.php?r=customer%2Fmanage-client"
-    );
-    await loginPage.userName.fill("posifyadmin");
-    await loginPage.nextBtn.click();
-    await loginPage.password.fill("102938");
-    await loginPage.loginBtn.click();
-    await loginPage.page.waitForTimeout(5000);
-    await loginPage.page.locator('xpath=/html/body/div[1]/aside/div[1]/section/ul/li[10]/a/span').click();
-    await loginPage.page.waitForTimeout(2000);
-    await loginPage.page.getByRole("link", { name: "推广优惠" }).click();
-    await loginPage.page.waitForTimeout(2000);
-    await marketingPage.addPromotion.click();
-    await loginPage.page.waitForTimeout(2000);
-    await marketingPage.page.locator("xpath=//div[(@data-template-id='PRICE_DISCOUNT_TEMPLATE_3')]").click();
-    await loginPage.page.waitForTimeout(2000);
-    await marketingPage.page.getByRole('link', { name: 'English' }).click();
-    await marketingPage.page.locator('#promotion_name_en_us').fill("买满相等于数量3全单以零售价20%折扣")
-    await marketingPage.page.getByRole('link', { name: '繁體中文' }).click();
-    await marketingPage.page.locator('#promotion_name_zh_hk').fill("买满相等于数量3全单以零售价20%折扣")
-    await marketingPage.page.getByRole('link', { name: '简体中文' }).click();
-    await marketingPage.page.locator('#promotion_name_zh_cn').fill("买满相等于数量3全单以零售价20%折扣")
-    await marketingPage.page.locator('#trigger_category_qty').fill("3");
-    await marketingPage.page.locator('#discount_rate').fill("20");
-    await marketingPage.advanceSetting.click();
-    await marketingPage.page.getByRole('link', { name: '规则' }).click();
-    await loginPage.page.waitForTimeout(2000);
-    await marketingPage.page.locator('#percent_apply_price_type_tier1').selectOption('零售价');
-    await loginPage.page.waitForTimeout(2000);
-    await marketingPage.saveBtn.click();
-    await loginPage.page.waitForTimeout(2000);
-    await loginPage.page.locator("xpath=//img[@src='/atpromotiontest@7.3.01.2203.0905w/images/no-user.png']").nth(0).click();
-    await loginPage.page.getByText("登出").nth(0).click();
-    await loginPage.page.waitForTimeout(2000);
-
+    await marketingPage.activatePromotion("买满相等于数量3全单以折实价20%折扣");
 
     await onlineStore.page.goto(
       "https://web21.posify.me/atpromotiontest@7.3.01.2203.0905w/?lang=ZH_HK#"
@@ -88,6 +54,9 @@ test.describe("Promotion ", () => {
     await onlineStore.shoppingCart.click();
     await shoppingCart.deleteCartBtn.click();
     await onlineStore.page.waitForTimeout(3000);
+
+
+    await marketingPage.deactivatePromotion("买满相等于数量3全单以折实价20%折扣");
   });
 
 });
