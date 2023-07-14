@@ -11,8 +11,8 @@ import { devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  // testDir: "./src/specs/promotion",
-  testMatch: ["v0625/MKT-PROMO-5.2.2.1-1.spec.ts"],
+  testDir: "./src/specs/promotion",
+  // testMatch: ["v0625/MKT-PROMO-5.2.2.1-1.spec.ts"],
   // testMatch: ["promotion.spec.ts"],
   /* Maximum time one test can run for. */
   timeout: 30 * 10000,
